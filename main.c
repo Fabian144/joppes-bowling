@@ -16,7 +16,7 @@ int main(void)
 		int retry = get_int("Press 1 to retry or 0 to exit: ", 0, 1);
 		if (retry)
 		{
-			continue;;
+			continue;
 		}
 		else
 		{
