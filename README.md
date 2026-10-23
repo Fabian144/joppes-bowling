@@ -1,6 +1,6 @@
 # Joppe's Bowling 🎳
 
-### A Bowling Alley Booking System Written in C
+### A bowling alley booking system written in C
 
 ## Project Overview
 
