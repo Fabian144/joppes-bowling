@@ -1,45 +1,80 @@
-## Rädda Joppes Bowling!
+# Joppe's Bowling 🎳
 
-Joppes Bowling är i akut behov av ett nytt bokningssystem. Det nuvarande systemet består av en kaffefläckig anteckningsbok, tre lösa post-it-lappar och Joppes minne – vilket tyvärr inte är lika träffsäkert som hans bowlingklot.
+### A Bowling Alley Booking System Written in C
 
-Kalle vill därför att vi utvecklar ett program i C där personalen kan registrera kunder. Varje kund ska ha:
+## Project Overview
 
-- ett unikt kund-id
-- ett namn
-- en adress
-- antalet gånger kunden har bowlat
+Joppe's Bowling needs a reliable booking system to replace its notebook and sticky notes. This project aims to simplify customer management, lane reservations, and booking administration.
 
-Bowlinghallen har flera banor. Varje bana har ett unikt bannummer och kan vara bokad under olika tidsintervall. En bokning ska innehålla:
+**Status:** Work in Progress 🚧
 
-- ett boknings-id
-- kundens id
-- banans nummer
-- datum
-- en tids-slot, exempelvis `09:00–10:00`
-- antal spelare
-- status, exempelvis aktiv eller avbokad
+## Features
 
-Systemet ska kontrollera att samma bana inte bokas av flera kunder vid samma tid. Två sällskap får alltså inte dela bana av misstag – det leder lätt till förvirring, flygande klot och mycket dåliga recensioner.
+### Customer Management
 
-Personalen ska kunna:
+- [x] Register a new customer.
+- [x] Display all registered customers.
+- [x] Search for a customer by their unique customer ID.
+- [x] Update a customer's name.
+- [ ] Update a customer's address.
+- [ ] Update the number of times a customer has bowled.
+- [ ] Identify regular customers who have bowled at least 10 times.
 
-1. Registrera en ny kund.
-2. Visa alla registrerade kunder.
-3. Söka efter en kund med hjälp av kund-id.
-4. Uppdatera kundens namn, adress eller antal bowlingbesök.
-5. Skapa en ny bokning.
-6. Visa alla bokningar.
-7. Visa bokningar för en viss kund.
-8. Visa bokningar för en viss bana eller ett visst datum.
-9. Avboka en bokning.
-10. Kontrollera om en bana är ledig under en viss tids-slot.
+### Booking Management
 
-När en genomförd bokning registreras ska kundens antal bowlingbesök kunna ökas. Kunder som har bowlat minst tio gånger får gärna markeras som stamkunder. De får inga automatiska rabatter ännu, men de kan åtminstone känna sig sedda.
+- [ ] Create and view bookings.
+- [ ] Search bookings by customer, lane, or date.
+- [ ] Cancel bookings.
+- [ ] Check lane availability.
+- [ ] Prevent overlapping bookings for the same lane.
+- [ ] Track completed bookings and update customer visit counts.
 
-Informationen om kunder och bokningar ska lagras i filer så att allt finns kvar när programmet avslutas. När programmet startar ska tidigare sparade uppgifter läsas in igen. Kalle vill absolut inte behöva skriva in alla kunder varje morgon – särskilt inte före den första koppen kaffe.
+### Data Storage
 
-Programmet bör använda en eller flera `struct`-typer, exempelvis `Customer`, `Lane` och `Booking`. Det ska också ha en tydlig meny som fortsätter visas tills användaren väljer att avsluta programmet.
+- [x] Save customer information to files.
+- [ ] Save booking information to files.
+- [x] Load previously saved information when the program starts.
+- [x] Preserve all saved data when the program exits.
+- [x] Handle missing or unreadable data files gracefully.
 
-All inmatning bör kontrolleras så att programmet inte kraschar om någon råkar skriva `"gurka"` där ett bannummer förväntas. Systemet ska också visa begripliga felmeddelanden när exempelvis en kund inte finns eller en bana redan är bokad.
+### Validation
 
-Målet är att skapa ett enkelt men fungerande bokningssystem som hjälper Joppe att hålla ordning på kunder, banor och bokningar. Om systemet fungerar kanske Joppe äntligen kan ägna sig åt bowlinghallen i stället för att leta efter borttappade post-it-lappar.
+- [x] Validate user input and handle errors.
+- [ ] Prevent duplicate IDs and invalid bookings.
+- [x] Display clear error messages.
+
+## Technical Requirements
+
+- **Language:** C
+- **Data structures:** `struct` types for customers, lanes, and bookings.
+- **Storage:** File handling.
+- **Interface:** Menu-driven command-line application.
+- **Reliability:** Input validation and booking conflict detection.
+
+Each customer has a unique ID, name, address, and bowling visit count. Each booking contains a booking ID, customer ID, lane number, date, time slot, number of players, and status.
+
+## Development Roadmap
+
+- [x] Define data structure for customers.
+- [ ] Define data structure for lanes.
+- [ ] Define data structure for bookings.
+- [x] Implement customer management.
+- [ ] Implement booking and lane management.
+- [ ] Add booking conflict detection.
+- [x] Implement file storage.
+- [x] Add input validation and error handling.
+- [ ] Test and finalize the program.
+
+## Building and Running
+
+Compile using GCC through Make:
+
+```bash
+make bowling
+```
+
+Run the program:
+
+```bash
+make run
+```
