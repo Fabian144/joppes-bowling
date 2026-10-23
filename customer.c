@@ -9,7 +9,7 @@ bool load_customers(const char *filename)
 	FILE *file = fopen(filename, "rb");
 	if (file == NULL)
 	{
-		printf("Could not load customers because the file does not exist or could not be read.\n");
+		printf("Could not load customers because the file %s does not exist or could not be read.\n", filename);
 		return false;
 	}
 
@@ -25,7 +25,7 @@ bool update_customers(const char *filename)
 	FILE *file = fopen(filename, "wb");
 	if (file == NULL)
 	{
-		printf("Could not sync customer data because the file does not exist or could not be read.\n");
+		printf("Could not sync customer data because the file %s does not exist or could not be read.\n", filename);
 		return false;
 	}
 
@@ -52,7 +52,7 @@ bool add_customer(const Customer *customer, const char *filename)
 	FILE *file = fopen(filename, "ab");
 	if (file == NULL)
 	{
-		printf("Could not add customer because the file does not exist or could not be read.\n");
+		printf("Could not add customer because the file %s does not exist or could not be read.\n", filename);
 		return false;
 	}
 
