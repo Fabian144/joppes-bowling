@@ -11,7 +11,18 @@ int main(void)
 
 	const char *filename = "customers.dat";
 
-	load_customers(filename);
+	while (!load_customers(filename))
+	{
+		int retry = get_int("Press 1 to retry or 0 to exit: ", 0, 1);
+		if (retry)
+		{
+			continue;;
+		}
+		else
+		{
+			return 1;
+		}
+	}
 
 	int user_choice;
 	int run_program = true;
