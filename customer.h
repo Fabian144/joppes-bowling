@@ -1,12 +1,11 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
+
+#include <stdbool.h>
+
 #define MAX_CUSTOMERS 100
 #define MAX_CUSTOMER_NAME_LENGTH 30
 #define MAX_CUSTOMER_ADDRESS_LENGTH 50
-
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 
 typedef struct
 {
@@ -23,9 +22,9 @@ extern int total_customers;
 bool load_customers(const char *filename);
 bool update_customers(const char *filename);
 bool add_customer(const Customer *customer, const char *filename);
-bool delete_customer(const int id);
-bool update_customer_name(const int id, char *new_name);
+bool delete_customer(int id);
+bool update_customer_name(int id, char *new_name);
 void print_customer(const Customer *customer);
 void print_all_customers(void);
-Customer get_customer_by_id(const int id);
+Customer get_customer_by_id(int id);
 #endif

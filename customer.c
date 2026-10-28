@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <string.h>
 #include "customer.h"
 #include "helpers.h"
 
@@ -63,7 +65,7 @@ bool add_customer(const Customer *customer, const char *filename)
 	return true;
 }
 
-bool delete_customer(const int id)
+bool delete_customer(int id)
 {
 	if (!check_id_exists(id, all_customers, total_customers))
 	{
@@ -83,7 +85,7 @@ bool delete_customer(const int id)
 	return true;
 }
 
-bool update_customer_name(const int id, char *new_name)
+bool update_customer_name(int id, char *new_name)
 {
 	if (!check_id_exists(id, all_customers, total_customers))
 	{
@@ -121,7 +123,7 @@ void print_all_customers(void)
 	}
 }
 
-Customer get_customer_by_id(const int id)
+Customer get_customer_by_id(int id)
 {
 	for (int i = 0; i < total_customers; i++)
 	{
