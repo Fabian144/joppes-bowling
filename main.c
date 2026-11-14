@@ -93,8 +93,6 @@ int main(void)
 			char new_name[MAX_CUSTOMER_NAME_LENGTH];
 
 			int id = get_int("Enter customer id: ", 1, 10000);
-			int customer_index = get_index_by_id(id, all_customers, total_customers);
-
 			get_string("Enter new name: ", new_name, MAX_CUSTOMER_NAME_LENGTH - 1);
 
 			if (!update_customer_name(id, new_name) || !update_customers(filename))
@@ -104,6 +102,8 @@ int main(void)
 			}
 			else
 			{
+				int customer_index = get_index_by_id(id, all_customers, total_customers);
+				
 				printf("The customers name has been changed!\n");
 				print_customer(&all_customers[customer_index]);
 			}
