@@ -1,6 +1,8 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-bool check_id_exists(const int id, const Customer *customers, const int total);
-int get_index_by_id(const int id, const Customer *customers, const int total);
+bool
+check_id_exists(const int id, const Customer* customers, const int total);
+int
+get_index_by_id(const int id, const Customer* customers, const int total);
 #endif

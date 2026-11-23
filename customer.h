@@ -9,23 +9,32 @@
 
 typedef struct
 {
-	int id;
-	char name[MAX_CUSTOMER_NAME_LENGTH];
-	char address[MAX_CUSTOMER_ADDRESS_LENGTH];
-	int total_games;
-	bool regular;
+  int id;
+  char name[MAX_CUSTOMER_NAME_LENGTH];
+  char address[MAX_CUSTOMER_ADDRESS_LENGTH];
+  int total_games;
+  bool regular;
 } Customer;
 
 extern Customer all_customers[MAX_CUSTOMERS];
 extern int total_customers;
 
-bool load_customers(const char *filename);
-bool update_customers(const char *filename);
-bool add_customer(const Customer *customer, const char *filename);
-bool delete_customer(int id);
-bool update_customer_name(int id, char *new_name);
-bool update_customer_address(int id, char *new_address);
-void print_customer(const Customer *customer);
-void print_all_customers(void);
-Customer get_customer_by_id(int id);
+bool
+load_customers(const char* filename);
+bool
+update_customers(const char* filename);
+bool
+add_customer(const Customer* customer, const char* filename);
+bool
+delete_customer(int id);
+bool
+update_customer_name(int id, char* new_name);
+bool
+update_customer_address(int id, char* new_address);
+void
+print_customer(const Customer* customer);
+void
+print_all_customers(void);
+Customer
+get_customer_by_id(int id);
 #endif
