@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic -std=c17 -MMD -MP
+CFLAGS = -g -Wall -Wextra -Wpedantic -std=c17 -MMD -MP
 DIRECTORY = build
 PROGRAM = bowling
 
