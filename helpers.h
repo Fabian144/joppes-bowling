@@ -1,6 +1,7 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
+#include "customer.h"
 #include <stdbool.h>
 
 bool
