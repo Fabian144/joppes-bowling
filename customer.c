@@ -5,11 +5,15 @@
 
 Customer all_customers[MAX_CUSTOMERS];
 int total_customers = 0;
+const char* scan_format =
+  "ID: %d; Name: %29[^;\n]; Address: %99[^;\n]; Games: %d; Regular: %s\n";
+const char* print_format =
+  "ID: %d; Name: %s; Address: %s; Games: %d; Regular: %s\n";
 
 bool
 load_customers(const char* filename)
 {
-  FILE* file = fopen(filename, "rb");
+  FILE* file = fopen(filename, "r");
   if (file == NULL) {
     printf("Could not load customers because the file %s does not exist or "
            "could not be read.\n",
@@ -17,17 +21,32 @@ load_customers(const char* filename)
     return false;
   }
 
-  size_t count = fread(all_customers, sizeof(Customer), MAX_CUSTOMERS, file);
+  int count = 0;
+  char regular_customer[6];
+  while (count < MAX_CUSTOMERS && fscanf(file,
+                                         scan_format,
+                                         &all_customers[count].id,
+                                         all_customers[count].name,
+                                         all_customers[count].address,
+                                         &all_customers[count].total_games,
+                                         regular_customer) == 5) {
+    if (strcmp(regular_customer, "true") == 0) {
+      all_customers[count].regular = true;
+    } else {
+      all_customers[count].regular = false;
+    }
+    count++;
+  }
   fclose(file);
 
-  total_customers = (int)count;
+  total_customers = count;
   return true;
 }
 
 bool
 update_customers(const char* filename)
 {
-  FILE* file = fopen(filename, "wb");
+  FILE* file = fopen(filename, "w");
   if (file == NULL) {
     printf("Could not sync customer data because the file %s does not exist or "
            "could not be read.\n",
@@ -35,7 +54,15 @@ update_customers(const char* filename)
     return false;
   }
 
-  fwrite(all_customers, sizeof(Customer) * total_customers, 1, file);
+  for (int i = 0; i < total_customers; i++) {
+    fprintf(file,
+            print_format,
+            all_customers[i].id,
+            all_customers[i].name,
+            all_customers[i].address,
+            all_customers[i].total_games,
+            all_customers[i].regular ? "true" : "false");
+  }
   fclose(file);
 
   return true;
@@ -54,7 +81,7 @@ add_customer(const Customer* customer, const char* filename)
     return false;
   }
 
-  FILE* file = fopen(filename, "ab");
+  FILE* file = fopen(filename, "a");
   if (file == NULL) {
     printf("Could not add customer because the file %s does not exist or could "
            "not be read.\n",
@@ -62,7 +89,13 @@ add_customer(const Customer* customer, const char* filename)
     return false;
   }
 
-  fwrite(customer, sizeof(Customer), 1, file);
+  fprintf(file,
+          print_format,
+          customer->id,
+          customer->name,
+          customer->address,
+          customer->total_games,
+          customer->regular ? "true" : "false");
   fclose(file);
 
   printf("Customer added!\n");

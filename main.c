@@ -11,7 +11,7 @@ main(void)
 {
   printf("Welcome to Joppes Bowling\n");
 
-  const char* filename = "customers.dat";
+  const char* filename = "customers.txt";
 
   while (!load_customers(filename)) {
     int retry = get_int("Press 1 to retry or 0 to exit: ", 0, 1);
