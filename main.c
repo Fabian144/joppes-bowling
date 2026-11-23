@@ -33,7 +33,8 @@ main(void)
       case 1: {
         Customer new_customer;
 
-        new_customer.id = total_customers + 1;
+        new_customer.id =
+          total_customers == 0 ? 1 : all_customers[total_customers - 1].id + 1;
         get_string(
           "Enter name: ", new_customer.name, sizeof(new_customer.name));
         get_string("Enter address: ",
