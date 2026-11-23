@@ -105,6 +105,26 @@ bool update_customer_name(int id, char *new_name)
 	return false;
 }
 
+bool update_customer_address(int id, char *new_address)
+{
+	if (!check_id_exists(id, all_customers, total_customers))
+	{
+		printf("Customer does not exist.\n");
+		return false;
+	}
+
+	for (int i = 0; i < total_customers; i++)
+	{
+		if (all_customers[i].id == id)
+		{
+			strcpy(all_customers[i].address, new_address);
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void print_customer(const Customer *customer)
 {
 	printf("\nCustomer %d:   \n", customer->id);

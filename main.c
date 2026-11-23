@@ -30,7 +30,7 @@ int main(void)
 	while (run_program)
 	{
 		print_menu();
-		user_choice = get_int("Enter choice: ", 0, 5);
+		user_choice = get_int("Enter choice: ", 0, 6);
 
 		switch (user_choice)
 		{
@@ -65,7 +65,7 @@ int main(void)
 
 			if (!update_customers(filename))
 			{
-				printf("The customer %s has not been deleted",
+				printf("The customer %s has not been deleted\n",
 							 all_customers[customer_index].name);
 				load_customers(filename);
 			}
@@ -118,6 +118,29 @@ int main(void)
 			}
 			break;
 		}
+		case 6:
+		{
+			char new_address[MAX_CUSTOMER_ADDRESS_LENGTH];
+
+			int id = get_int("Enter customer id: ", 1, 10000);
+			get_string("Enter new address: ", new_address, MAX_CUSTOMER_ADDRESS_LENGTH - 1);
+
+			if (!update_customer_address(id, new_address) ||
+					!update_customers(filename))
+			{
+				printf("The customers address has not been changed.\n");
+				load_customers(filename);
+			}
+			else
+			{
+				int customer_index =
+					get_index_by_id(id, all_customers, total_customers);
+
+				printf("The customers address has been changed!\n");
+				print_customer(&all_customers[customer_index]);
+			}
+			break;
+		}
 		case 0:
 			run_program = false;
 			break;
@@ -137,5 +160,6 @@ void print_menu()
 	printf("3. Show all customers\n");
 	printf("4. Search for a customer\n");
 	printf("5. Update a customers name\n");
+	printf("6. Update a customers address\n");
 	printf("0. Quit\n");
 }
