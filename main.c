@@ -2,6 +2,7 @@
 #include "helpers.h"
 #include "safe_input.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void
 print_menu();
@@ -83,9 +84,11 @@ main(void)
         if (customer.id == search_id) {
           printf("We found the customer!\n");
           print_customer(&customer);
-        } else {
-          printf("We did not find the magic customer!\n");
+          break;
         }
+
+        printf("We did not find the magic customer!\n");
+
         break;
       }
       case 5: {
@@ -98,13 +101,15 @@ main(void)
             !update_customers(filename)) {
           printf("The customers name has not been changed.\n");
           load_customers(filename);
-        } else {
-          int customer_index =
-            get_index_by_id(id, all_customers, total_customers);
-
-          printf("The customers name has been changed!\n");
-          print_customer(&all_customers[customer_index]);
+          break;
         }
+
+        int customer_index =
+          get_index_by_id(id, all_customers, total_customers);
+
+        printf("The customers name has been changed!\n");
+        print_customer(&all_customers[customer_index]);
+
         break;
       }
       case 6: {
@@ -118,17 +123,21 @@ main(void)
             !update_customers(filename)) {
           printf("The customers address has not been changed.\n");
           load_customers(filename);
-        } else {
-          int customer_index =
-            get_index_by_id(id, all_customers, total_customers);
-
-          printf("The customers address has been changed!\n");
-          print_customer(&all_customers[customer_index]);
+          break;
         }
+
+        int customer_index =
+          get_index_by_id(id, all_customers, total_customers);
+
+        printf("The customers address has been changed!\n");
+        print_customer(&all_customers[customer_index]);
+
         break;
       }
       case 0:
         run_program = false;
+        free(all_customers);
+        all_customers = NULL;
         break;
       default:
         printf("Invalid choice! Try again!\n");
