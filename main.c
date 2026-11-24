@@ -55,16 +55,22 @@ main(void)
         int customer_index =
           get_index_by_id(id, all_customers, total_customers);
 
-        delete_customer(id);
+        if (!delete_customer(id)) {
+          printf("The customer has not been deleted.\n");
+          load_customers(filename);
+          break;
+        }
 
         if (!update_customers(filename)) {
-          printf("The customer %s has not been deleted\n",
+          printf("The customer %s has not been deleted.\n",
                  all_customers[customer_index].name);
           load_customers(filename);
-        } else {
-          printf("The customer %s has been deleted!\n",
-                 all_customers[customer_index].name);
+          break;
         }
+
+        printf("The customer %s has been deleted!\n",
+               all_customers[customer_index].name);
+
         break;
       }
       case 3:
