@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 
-#define MAX_CUSTOMERS 100
 #define MAX_CUSTOMER_NAME_LENGTH 30
 #define MAX_CUSTOMER_ADDRESS_LENGTH 100
 
@@ -16,7 +15,7 @@ typedef struct
   bool regular;
 } Customer;
 
-extern Customer all_customers[MAX_CUSTOMERS];
+extern Customer* all_customers;
 extern int total_customers;
 
 bool
@@ -24,7 +23,7 @@ load_customers(const char* filename);
 bool
 update_customers(const char* filename);
 bool
-add_customer(const Customer* customer, const char* filename);
+add_customer(const Customer* customer);
 bool
 delete_customer(int id);
 bool

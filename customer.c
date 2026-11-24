@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <string.h>
 
-Customer all_customers[MAX_CUSTOMERS];
+Customer* all_customers = NULL;
 int total_customers = 0;
+int customer_limit = 0;
+
 const char* scan_format =
   "ID: %d; Name: %29[^;\n]; Address: %99[^;\n]; Games: %d; Regular: %s\n";
 const char* print_format =
@@ -21,15 +23,21 @@ load_customers(const char* filename)
     return false;
   }
 
+  fscanf(file, "Total customers: %d\n", &total_customers);
+
+  if (total_customers >= customer_limit) {
+    allocate_memory(&all_customers, &customer_limit, total_customers * 2);
+  }
+
   int count = 0;
   char regular_customer[6];
-  while (count < MAX_CUSTOMERS && fscanf(file,
-                                         scan_format,
-                                         &all_customers[count].id,
-                                         all_customers[count].name,
-                                         all_customers[count].address,
-                                         &all_customers[count].total_games,
-                                         regular_customer) == 5) {
+  while (fscanf(file,
+                scan_format,
+                &all_customers[count].id,
+                all_customers[count].name,
+                all_customers[count].address,
+                &all_customers[count].total_games,
+                regular_customer) == 5) {
     if (strcmp(regular_customer, "true") == 0) {
       all_customers[count].regular = true;
     } else {
@@ -39,7 +47,6 @@ load_customers(const char* filename)
   }
   fclose(file);
 
-  total_customers = count;
   return true;
 }
 
@@ -54,6 +61,7 @@ update_customers(const char* filename)
     return false;
   }
 
+  fprintf(file, "Total customers: %d\n", total_customers);
   for (int i = 0; i < total_customers; i++) {
     fprintf(file,
             print_format,
@@ -69,36 +77,25 @@ update_customers(const char* filename)
 }
 
 bool
-add_customer(const Customer* customer, const char* filename)
+add_customer(const Customer* customer)
 {
-  if (total_customers == MAX_CUSTOMERS) {
-    printf("Customer cap reached.\n");
-    return false;
-  }
-
   if (check_id_exists(customer->id, all_customers, total_customers)) {
     printf("Customer already exists.\n");
     return false;
   }
 
-  FILE* file = fopen(filename, "a");
-  if (file == NULL) {
-    printf("Could not add customer because the file %s does not exist or could "
-           "not be read.\n",
-           filename);
-    return false;
+  if (total_customers == customer_limit) {
+    allocate_memory(&all_customers, &customer_limit, total_customers * 2);
   }
 
-  fprintf(file,
-          print_format,
-          customer->id,
-          customer->name,
-          customer->address,
-          customer->total_games,
-          customer->regular ? "true" : "false");
-  fclose(file);
+  all_customers[total_customers].id = customer->id;
+  strcpy(all_customers[total_customers].name, customer->name);
+  strcpy(all_customers[total_customers].address, customer->address);
+  all_customers[total_customers].total_games = customer->total_games;
+  all_customers[total_customers].regular = customer->regular;
 
-  printf("Customer added!\n");
+	total_customers++;
+
   return true;
 }
 

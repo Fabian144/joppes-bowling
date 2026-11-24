@@ -1,5 +1,6 @@
 #include "helpers.h"
 #include "customer.h"
+#include <stdio.h>
 
 bool
 check_id_exists(const int id, const Customer* customers, const int total)
@@ -23,4 +24,18 @@ get_index_by_id(const int id, const Customer* customers, const int total)
   }
 
   return -1;
+}
+
+bool
+allocate_memory(Customer** customers, int* limit, size_t amount)
+{
+  Customer* tmp = realloc(*customers, amount * sizeof(**customers));
+  if (tmp == NULL) {
+    printf("Could not allocate memory for more customers.\n");
+    return false;
+  }
+
+  *customers = tmp;
+  *limit = amount;
+  return true;
 }

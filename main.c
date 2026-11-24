@@ -44,10 +44,15 @@ main(void)
         new_customer.total_games = 0;
         new_customer.regular = false;
 
-        if (add_customer(&new_customer, filename)) {
+        if (!add_customer(&new_customer) || !update_customers(filename)) {
+          printf("The customer has not been added.\n");
           load_customers(filename);
-          print_customer(&new_customer);
+          break;
         }
+
+        printf("Customer added!\n");
+        print_customer(&new_customer);
+
         break;
       }
       case 2: {
