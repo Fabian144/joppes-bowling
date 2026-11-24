@@ -16,7 +16,7 @@ Joppe's Bowling needs a reliable booking system to replace its notebook and stic
 - [x] Display all registered customers.
 - [x] Search for a customer by their unique customer ID.
 - [x] Update a customer's name.
-- [ ] Update a customer's address.
+- [x] Update a customer's address.
 - [ ] Update the number of times a customer has bowled.
 - [ ] Identify regular customers who have bowled at least 10 times.
 
