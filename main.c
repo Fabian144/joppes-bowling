@@ -56,7 +56,7 @@ main(void)
       }
       case 2: {
         int id = get_int(
-          "Enter the id of the customer you want to delete: ", 1, 10000);
+          "Enter the id of the customer you want to delete: ", 1, 999999);
         int customer_index =
           get_index_by_id(id, all_customers, total_customers);
 
@@ -81,7 +81,7 @@ main(void)
         print_all_customers();
         break;
       case 4: {
-        int search_id = get_int("Enter customer id: ", 1, 10000);
+        int search_id = get_int("Enter customer id: ", 1, 999999);
         Customer customer = get_customer_by_id(search_id);
 
         if (customer.id == search_id) {
@@ -96,7 +96,7 @@ main(void)
       case 5: {
         char new_name[MAX_CUSTOMER_NAME_LENGTH];
 
-        int id = get_int("Enter customer id: ", 1, 10000);
+        int id = get_int("Enter customer id: ", 1, 999999);
         get_string("Enter new name: ", new_name, MAX_CUSTOMER_NAME_LENGTH - 1);
 
         if (!update_customer_name(id, new_name) ||
@@ -116,7 +116,7 @@ main(void)
       case 6: {
         char new_address[MAX_CUSTOMER_ADDRESS_LENGTH];
 
-        int id = get_int("Enter customer id: ", 1, 10000);
+        int id = get_int("Enter customer id: ", 1, 999999);
         get_string(
           "Enter new address: ", new_address, MAX_CUSTOMER_ADDRESS_LENGTH - 1);
 
