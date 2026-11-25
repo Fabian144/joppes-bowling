@@ -20,9 +20,9 @@ extern Customer* all_customers;
 extern int total_customers;
 
 bool
-load_customers(const char* filename);
+load_customers_from_file(const char* filename);
 bool
-update_customers(const char* filename);
+update_customers_in_file(const char* filename);
 bool
 add_customer(const Customer* customer);
 bool

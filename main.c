@@ -14,7 +14,7 @@ main(void)
 
   const char* filename = "customers.txt";
 
-  while (!load_customers(filename)) {
+  while (!load_customers_from_file(filename)) {
     int retry = get_int("Press 1 to retry or 0 to exit: ", 0, 1);
     if (retry) {
       continue;
@@ -44,9 +44,10 @@ main(void)
         new_customer.total_games = 0;
         new_customer.regular = false;
 
-        if (!add_customer(&new_customer) || !update_customers(filename)) {
+        if (!add_customer(&new_customer) ||
+            !update_customers_in_file(filename)) {
           printf("The customer has not been added.\n");
-          load_customers(filename);
+          load_customers_from_file(filename);
           break;
         }
 
@@ -61,15 +62,14 @@ main(void)
           get_index_by_id(id, all_customers, total_customers);
 
         if (!delete_customer(id)) {
-          printf("The customer has not been deleted.\n");
-          load_customers(filename);
+          load_customers_from_file(filename);
           break;
         }
 
-        if (!update_customers(filename)) {
+        if (!update_customers_in_file(filename)) {
           printf("The customer %s has not been deleted.\n",
                  all_customers[customer_index].name);
-          load_customers(filename);
+          load_customers_from_file(filename);
           break;
         }
 
@@ -99,10 +99,14 @@ main(void)
         int id = get_int("Enter customer id: ", 1, 999999);
         get_string("Enter new name: ", new_name, MAX_CUSTOMER_NAME_LENGTH - 1);
 
-        if (!update_customer_name(id, new_name) ||
-            !update_customers(filename)) {
+        if (!update_customer_name(id, new_name)) {
+          load_customers_from_file(filename);
+          break;
+        }
+
+        if (!update_customers_in_file(filename)) {
           printf("The customers name has not been changed.\n");
-          load_customers(filename);
+          load_customers_from_file(filename);
           break;
         }
 
@@ -120,10 +124,14 @@ main(void)
         get_string(
           "Enter new address: ", new_address, MAX_CUSTOMER_ADDRESS_LENGTH - 1);
 
-        if (!update_customer_address(id, new_address) ||
-            !update_customers(filename)) {
+        if (!update_customer_address(id, new_address)) {
+          load_customers_from_file(filename);
+          break;
+        }
+
+        if (!update_customers_in_file(filename)) {
           printf("The customers address has not been changed.\n");
-          load_customers(filename);
+          load_customers_from_file(filename);
           break;
         }
 
@@ -140,10 +148,14 @@ main(void)
         int id = get_int("Enter customer id: ", 1, 999999);
         new_total_games = get_int("Enter new total games: ", 0, 999999);
 
-        if (!update_customer_total_games(id, new_total_games) ||
-            !update_customers(filename)) {
+        if (!update_customer_total_games(id, new_total_games)) {
+          load_customers_from_file(filename);
+          break;
+        }
+
+        if (!update_customers_in_file(filename)) {
           printf("The customers total games have not been changed.\n");
-          load_customers(filename);
+          load_customers_from_file(filename);
           break;
         }
 

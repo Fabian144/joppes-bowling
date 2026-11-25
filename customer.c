@@ -13,7 +13,7 @@ const char* print_format =
   "ID: %d; Name: %s; Address: %s; Games: %d; Regular: %s\n";
 
 bool
-load_customers(const char* filename)
+load_customers_from_file(const char* filename)
 {
   FILE* file = fopen(filename, "r");
   if (file == NULL) {
@@ -46,13 +46,13 @@ load_customers(const char* filename)
     }
     count++;
   }
-  fclose(file);
 
+  fclose(file);
   return true;
 }
 
 bool
-update_customers(const char* filename)
+update_customers_in_file(const char* filename)
 {
   FILE* file = fopen(filename, "w");
   if (file == NULL) {
@@ -72,8 +72,8 @@ update_customers(const char* filename)
             all_customers[i].total_games,
             all_customers[i].regular ? "true" : "false");
   }
-  fclose(file);
 
+  fclose(file);
   return true;
 }
 
@@ -97,7 +97,6 @@ add_customer(const Customer* customer)
   all_customers[total_customers].regular = customer->regular;
 
   total_customers++;
-
   return true;
 }
 
@@ -116,7 +115,6 @@ delete_customer(int id)
   }
 
   total_customers--;
-
   return true;
 }
 
