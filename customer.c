@@ -26,7 +26,8 @@ load_customers(const char* filename)
   fscanf(file, "Total customers: %d\n", &total_customers);
 
   if (total_customers >= customer_limit) {
-    allocate_memory(&all_customers, &customer_limit, total_customers * 2);
+    allocate_memory_for_customers(
+      &all_customers, &customer_limit, total_customers * 2);
   }
 
   int count = 0;
@@ -85,7 +86,8 @@ add_customer(const Customer* customer)
   }
 
   if (total_customers == customer_limit) {
-    allocate_memory(&all_customers, &customer_limit, total_customers * 2);
+    allocate_memory_for_customers(
+      &all_customers, &customer_limit, total_customers * 2);
   }
 
   all_customers[total_customers].id = customer->id;
@@ -94,7 +96,7 @@ add_customer(const Customer* customer)
   all_customers[total_customers].total_games = customer->total_games;
   all_customers[total_customers].regular = customer->regular;
 
-	total_customers++;
+  total_customers++;
 
   return true;
 }
@@ -147,6 +149,30 @@ update_customer_address(int id, char* new_address)
   for (int i = 0; i < total_customers; i++) {
     if (all_customers[i].id == id) {
       strcpy(all_customers[i].address, new_address);
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool
+update_customer_total_games(int id, int new_total)
+{
+  if (!check_id_exists(id, all_customers, total_customers)) {
+    printf("Customer does not exist.\n");
+    return false;
+  }
+
+  for (int i = 0; i < total_customers; i++) {
+    if (all_customers[i].id == id) {
+      all_customers[i].total_games = new_total;
+
+      if (all_customers[i].total_games >= MIN_TOTAL_GAMES_OF_REGULAR) {
+        all_customers[i].regular = true;
+      } else {
+        all_customers[i].regular = false;
+      }
       return true;
     }
   }

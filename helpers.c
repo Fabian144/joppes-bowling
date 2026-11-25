@@ -27,7 +27,7 @@ get_index_by_id(const int id, const Customer* customers, const int total)
 }
 
 bool
-allocate_memory(Customer** customers, int* limit, size_t amount)
+allocate_memory_for_customers(Customer** customers, int* limit, size_t amount)
 {
   Customer* tmp = realloc(*customers, amount * sizeof(**customers));
   if (tmp == NULL) {

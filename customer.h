@@ -5,6 +5,7 @@
 
 #define MAX_CUSTOMER_NAME_LENGTH 30
 #define MAX_CUSTOMER_ADDRESS_LENGTH 100
+#define MIN_TOTAL_GAMES_OF_REGULAR 10
 
 typedef struct
 {
@@ -30,6 +31,8 @@ bool
 update_customer_name(int id, char* new_name);
 bool
 update_customer_address(int id, char* new_address);
+bool
+update_customer_total_games(int id, int new_total);
 void
 print_customer(const Customer* customer);
 void

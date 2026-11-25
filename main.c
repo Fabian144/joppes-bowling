@@ -28,7 +28,7 @@ main(void)
 
   while (run_program) {
     print_menu();
-    user_choice = get_int("Enter choice: ", 0, 6);
+    user_choice = get_int("Enter choice: ", 0, 7);
 
     switch (user_choice) {
       case 1: {
@@ -52,7 +52,6 @@ main(void)
 
         printf("Customer added!\n");
         print_customer(&new_customer);
-
         break;
       }
       case 2: {
@@ -76,7 +75,6 @@ main(void)
 
         printf("The customer %s has been deleted!\n",
                all_customers[customer_index].name);
-
         break;
       }
       case 3:
@@ -93,7 +91,6 @@ main(void)
         }
 
         printf("We did not find the magic customer!\n");
-
         break;
       }
       case 5: {
@@ -114,7 +111,6 @@ main(void)
 
         printf("The customers name has been changed!\n");
         print_customer(&all_customers[customer_index]);
-
         break;
       }
       case 6: {
@@ -136,14 +132,34 @@ main(void)
 
         printf("The customers address has been changed!\n");
         print_customer(&all_customers[customer_index]);
-
         break;
       }
-      case 0:
+      case 7: {
+        int new_total_games;
+
+        int id = get_int("Enter customer id: ", 1, 999999);
+        new_total_games = get_int("Enter new total games: ", 0, 999999);
+
+        if (!update_customer_total_games(id, new_total_games) ||
+            !update_customers(filename)) {
+          printf("The customers total games have not been changed.\n");
+          load_customers(filename);
+          break;
+        }
+
+        int customer_index =
+          get_index_by_id(id, all_customers, total_customers);
+
+        printf("The customers total games have been changed!\n");
+        print_customer(&all_customers[customer_index]);
+        break;
+      }
+      case 0: {
         run_program = false;
         free(all_customers);
         all_customers = NULL;
         break;
+      }
       default:
         printf("Invalid choice! Try again!\n");
         break;
@@ -162,5 +178,6 @@ print_menu()
   printf("4. Search for a customer\n");
   printf("5. Update a customers name\n");
   printf("6. Update a customers address\n");
+  printf("7. Update a customers total games\n");
   printf("0. Quit\n");
 }
