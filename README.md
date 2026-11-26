@@ -17,8 +17,8 @@ Joppe's Bowling needs a reliable booking system to replace its notebook and stic
 - [x] Search for a customer by their unique customer ID.
 - [x] Update a customer's name.
 - [x] Update a customer's address.
-- [ ] Update the number of times a customer has bowled.
-- [ ] Identify regular customers who have bowled at least 10 times.
+- [x] Update the number of times a customer has bowled.
+- [x] Identify regular customers who have bowled at least 10 times.
 
 ### Booking Management
 
@@ -56,8 +56,7 @@ Each customer has a unique ID, name, address, and bowling visit count. Each book
 ## Development Roadmap
 
 - [x] Define data structure for customers.
-- [ ] Define data structure for lanes.
-- [ ] Define data structure for bookings.
+- [x] Define data structure for lanes.
 - [x] Implement customer management.
 - [ ] Implement booking and lane management.
 - [ ] Add booking conflict detection.
