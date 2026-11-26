@@ -169,7 +169,6 @@ main(void)
       case 0: {
         run_program = false;
         free(all_customers);
-        all_customers = NULL;
         break;
       }
       default:
