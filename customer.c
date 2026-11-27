@@ -3,6 +3,8 @@
 #include "customer.h"
 #include "helpers.h"
 
+#define MIN_TOTAL_GAMES_OF_REGULAR 10
+
 Customer *all_customers = NULL;
 int total_customers = 0;
 int customer_limit = 0;

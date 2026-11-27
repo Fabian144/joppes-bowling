@@ -5,38 +5,28 @@
 
 #define MAX_CUSTOMER_NAME_LENGTH 30
 #define MAX_CUSTOMER_ADDRESS_LENGTH 100
-#define MIN_TOTAL_GAMES_OF_REGULAR 10
 
 typedef struct
 {
-  int id;
-  char name[MAX_CUSTOMER_NAME_LENGTH];
-  char address[MAX_CUSTOMER_ADDRESS_LENGTH];
-  int total_games;
-  bool regular;
+	int id;
+	char name[MAX_CUSTOMER_NAME_LENGTH];
+	char address[MAX_CUSTOMER_ADDRESS_LENGTH];
+	int total_games;
+	bool regular;
 } Customer;
 
-extern Customer* all_customers;
+extern Customer *all_customers;
 extern int total_customers;
 
-bool
-load_customers_from_file(const char* filename);
-bool
-update_customers_in_file(const char* filename);
-bool
-add_customer(const Customer* customer);
-bool
-delete_customer(int id);
-bool
-update_customer_name(int id, char* new_name);
-bool
-update_customer_address(int id, char* new_address);
-bool
-update_customer_total_games(int id, int new_total);
-void
-print_customer(const Customer* customer);
-void
-print_all_customers(void);
+bool load_customers_from_file(const char *filename);
+bool update_customers_in_file(const char *filename);
+bool add_customer(const Customer *customer);
+bool delete_customer(int id);
+bool update_customer_name(int id, char *new_name);
+bool update_customer_address(int id, char *new_address);
+bool update_customer_total_games(int id, int new_total);
+void print_customer(const Customer *customer);
+void print_all_customers(void);
 Customer
 get_customer_by_id(int id);
 #endif
