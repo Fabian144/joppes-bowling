@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "helpers.h"
 #include "customer.h"
+#include "booking.h"
 
 bool check_id_exists(const int id, const Customer *customers, const int total)
 {
@@ -38,6 +39,20 @@ bool allocate_memory_for_customers(Customer **customers, int *limit, size_t amou
 	}
 
 	*customers = tmp;
+	*limit = amount;
+	return true;
+}
+
+bool allocate_memory_for_bookings(Booking **bookings, int *limit, size_t amount)
+{
+	Booking *tmp = realloc(*bookings, amount * sizeof(**bookings));
+	if (tmp == NULL)
+	{
+		printf("Could not allocate memory for more bookings.\n");
+		return false;
+	}
+
+	*bookings = tmp;
 	*limit = amount;
 	return true;
 }
