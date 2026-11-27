@@ -23,13 +23,16 @@ load_customers_from_file(const char* filename)
     return false;
   }
 
-  fscanf(file, "Total customers: %d\n", &total_customers);
+  int temp_total = 0;
+  fscanf(file, "Total customers: %d\n", &temp_total);
 
-  if (total_customers >= customer_limit) {
-    allocate_memory_for_customers(
-      &all_customers, &customer_limit, total_customers * 2);
+  if (total_customers >= customer_limit &&
+      !allocate_memory_for_customers(
+        &all_customers, &customer_limit, total_customers * 2)) {
+    return false;
   }
 
+  total_customers = temp_total;
   int count = 0;
   char regular_customer[6];
   while (fscanf(file,
@@ -85,9 +88,10 @@ add_customer(const Customer* customer)
     return false;
   }
 
-  if (total_customers == customer_limit) {
-    allocate_memory_for_customers(
-      &all_customers, &customer_limit, total_customers * 2);
+  if (total_customers == customer_limit &&
+      !allocate_memory_for_customers(
+        &all_customers, &customer_limit, total_customers * 2)) {
+    return false;
   }
 
   all_customers[total_customers].id = customer->id;
