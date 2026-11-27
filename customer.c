@@ -25,8 +25,8 @@ bool load_customers_from_file(const char *filename)
 		return false;
 	}
 
-	int temp_total = 0;
-	fscanf(file, "Total customers: %d\n", &temp_total);
+	int prel_total_customers = 0;
+	fscanf(file, "Total customers: %d\n", &prel_total_customers);
 
 	if (total_customers >= customer_limit &&
 			!allocate_memory_for_customers(
@@ -35,7 +35,7 @@ bool load_customers_from_file(const char *filename)
 		return false;
 	}
 
-	total_customers = temp_total;
+	total_customers = prel_total_customers;
 	int count = 0;
 	char regular_customer[6];
 	while (fscanf(file,
