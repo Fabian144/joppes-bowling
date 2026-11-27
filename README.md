@@ -56,7 +56,7 @@ Each customer has a unique ID, name, address, and bowling visit count. Each book
 ## Development Roadmap
 
 - [x] Define data structure for customers.
-- [x] Define data structure for lanes.
+- [x] Define data structure for bookings.
 - [x] Implement customer management.
 - [ ] Implement booking and lane management.
 - [ ] Add booking conflict detection.
