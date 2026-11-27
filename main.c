@@ -1,194 +1,214 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "customer.h"
 #include "helpers.h"
 #include "safe_input.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-void
-print_menu();
+void print_menu();
 
-int
-main(void)
+int main(void)
 {
-  printf("Welcome to Joppes Bowling\n");
+	printf("Welcome to Joppes Bowling\n");
 
-  const char* filename = "customers.txt";
+	const char *filename = "customers.txt";
 
-  while (!load_customers_from_file(filename)) {
-    int retry = get_int("Press 1 to retry or 0 to exit: ", 0, 1);
-    if (retry) {
-      continue;
-    } else {
-      return 1;
-    }
-  }
+	while (!load_customers_from_file(filename))
+	{
+		int retry = get_int("Press 1 to retry or 0 to exit: ", 0, 1);
+		if (retry)
+		{
+			continue;
+		}
+		else
+		{
+			return 1;
+		}
+	}
 
-  int user_choice;
-  int run_program = true;
+	int user_choice;
+	int run_program = true;
 
-  while (run_program) {
-    print_menu();
-    user_choice = get_int("Enter choice: ", 0, 7);
+	while (run_program)
+	{
+		print_menu();
+		user_choice = get_int("Enter choice: ", 0, 7);
 
-    switch (user_choice) {
-      case 1: {
-        Customer new_customer;
+		switch (user_choice)
+		{
+		case 1:
+		{
+			Customer new_customer;
 
-        new_customer.id =
-          total_customers == 0 ? 1 : all_customers[total_customers - 1].id + 1;
-        get_string(
-          "Enter name: ", new_customer.name, sizeof(new_customer.name));
-        get_string("Enter address: ",
-                   new_customer.address,
-                   sizeof(new_customer.address));
-        new_customer.total_games = 0;
-        new_customer.regular = false;
+			new_customer.id =
+				total_customers == 0 ? 1 : all_customers[total_customers - 1].id + 1;
+			get_string(
+				"Enter name: ", new_customer.name, sizeof(new_customer.name));
+			get_string("Enter address: ",
+								 new_customer.address,
+								 sizeof(new_customer.address));
+			new_customer.total_games = 0;
+			new_customer.regular = false;
 
-        if (!add_customer(&new_customer) ||
-            !update_customers_in_file(filename)) {
-          printf("The customer has not been added.\n");
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!add_customer(&new_customer) ||
+					!update_customers_in_file(filename))
+			{
+				printf("The customer has not been added.\n");
+				load_customers_from_file(filename);
+				break;
+			}
 
-        printf("Customer added!\n");
-        print_customer(&new_customer);
-        break;
-      }
-      case 2: {
-        int id = get_int(
-          "Enter the id of the customer you want to delete: ", 1, 999999);
-        int customer_index =
-          get_index_by_id(id, all_customers, total_customers);
+			printf("Customer added!\n");
+			print_customer(&new_customer);
+			break;
+		}
+		case 2:
+		{
+			int id = get_int(
+				"Enter the id of the customer you want to delete: ", 1, 999999);
+			int customer_index =
+				get_index_by_id(id, all_customers, total_customers);
 
-        if (!delete_customer(id)) {
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!delete_customer(id))
+			{
+				load_customers_from_file(filename);
+				break;
+			}
 
-        if (!update_customers_in_file(filename)) {
-          printf("The customer %s has not been deleted.\n",
-                 all_customers[customer_index].name);
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!update_customers_in_file(filename))
+			{
+				printf("The customer %s has not been deleted.\n",
+							 all_customers[customer_index].name);
+				load_customers_from_file(filename);
+				break;
+			}
 
-        printf("The customer %s has been deleted!\n",
-               all_customers[customer_index].name);
-        break;
-      }
-      case 3:
-        print_all_customers();
-        break;
-      case 4: {
-        int search_id = get_int("Enter customer id: ", 1, 999999);
-        Customer customer = get_customer_by_id(search_id);
+			printf("The customer %s has been deleted!\n",
+						 all_customers[customer_index].name);
+			break;
+		}
+		case 3:
+			print_all_customers();
+			break;
+		case 4:
+		{
+			int search_id = get_int("Enter customer id: ", 1, 999999);
+			Customer customer = get_customer_by_id(search_id);
 
-        if (customer.id == search_id) {
-          printf("We found the customer!\n");
-          print_customer(&customer);
-          break;
-        }
+			if (customer.id == search_id)
+			{
+				printf("We found the customer!\n");
+				print_customer(&customer);
+				break;
+			}
 
-        printf("We did not find the magic customer!\n");
-        break;
-      }
-      case 5: {
-        char new_name[MAX_CUSTOMER_NAME_LENGTH];
+			printf("We did not find the magic customer!\n");
+			break;
+		}
+		case 5:
+		{
+			char new_name[MAX_CUSTOMER_NAME_LENGTH];
 
-        int id = get_int("Enter customer id: ", 1, 999999);
-        get_string("Enter new name: ", new_name, MAX_CUSTOMER_NAME_LENGTH - 1);
+			int id = get_int("Enter customer id: ", 1, 999999);
+			get_string("Enter new name: ", new_name, MAX_CUSTOMER_NAME_LENGTH - 1);
 
-        if (!update_customer_name(id, new_name)) {
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!update_customer_name(id, new_name))
+			{
+				load_customers_from_file(filename);
+				break;
+			}
 
-        if (!update_customers_in_file(filename)) {
-          printf("The customers name has not been changed.\n");
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!update_customers_in_file(filename))
+			{
+				printf("The customers name has not been changed.\n");
+				load_customers_from_file(filename);
+				break;
+			}
 
-        int customer_index =
-          get_index_by_id(id, all_customers, total_customers);
+			int customer_index =
+				get_index_by_id(id, all_customers, total_customers);
 
-        printf("The customers name has been changed!\n");
-        print_customer(&all_customers[customer_index]);
-        break;
-      }
-      case 6: {
-        char new_address[MAX_CUSTOMER_ADDRESS_LENGTH];
+			printf("The customers name has been changed!\n");
+			print_customer(&all_customers[customer_index]);
+			break;
+		}
+		case 6:
+		{
+			char new_address[MAX_CUSTOMER_ADDRESS_LENGTH];
 
-        int id = get_int("Enter customer id: ", 1, 999999);
-        get_string(
-          "Enter new address: ", new_address, MAX_CUSTOMER_ADDRESS_LENGTH - 1);
+			int id = get_int("Enter customer id: ", 1, 999999);
+			get_string(
+				"Enter new address: ", new_address, MAX_CUSTOMER_ADDRESS_LENGTH - 1);
 
-        if (!update_customer_address(id, new_address)) {
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!update_customer_address(id, new_address))
+			{
+				load_customers_from_file(filename);
+				break;
+			}
 
-        if (!update_customers_in_file(filename)) {
-          printf("The customers address has not been changed.\n");
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!update_customers_in_file(filename))
+			{
+				printf("The customers address has not been changed.\n");
+				load_customers_from_file(filename);
+				break;
+			}
 
-        int customer_index =
-          get_index_by_id(id, all_customers, total_customers);
+			int customer_index =
+				get_index_by_id(id, all_customers, total_customers);
 
-        printf("The customers address has been changed!\n");
-        print_customer(&all_customers[customer_index]);
-        break;
-      }
-      case 7: {
-        int new_total_games;
+			printf("The customers address has been changed!\n");
+			print_customer(&all_customers[customer_index]);
+			break;
+		}
+		case 7:
+		{
+			int new_total_games;
 
-        int id = get_int("Enter customer id: ", 1, 999999);
-        new_total_games = get_int("Enter new total games: ", 0, 999999);
+			int id = get_int("Enter customer id: ", 1, 999999);
+			new_total_games = get_int("Enter new total games: ", 0, 999999);
 
-        if (!update_customer_total_games(id, new_total_games)) {
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!update_customer_total_games(id, new_total_games))
+			{
+				load_customers_from_file(filename);
+				break;
+			}
 
-        if (!update_customers_in_file(filename)) {
-          printf("The customers total games have not been changed.\n");
-          load_customers_from_file(filename);
-          break;
-        }
+			if (!update_customers_in_file(filename))
+			{
+				printf("The customers total games have not been changed.\n");
+				load_customers_from_file(filename);
+				break;
+			}
 
-        int customer_index =
-          get_index_by_id(id, all_customers, total_customers);
+			int customer_index =
+				get_index_by_id(id, all_customers, total_customers);
 
-        printf("The customers total games have been changed!\n");
-        print_customer(&all_customers[customer_index]);
-        break;
-      }
-      case 0: {
-        run_program = false;
-        free(all_customers);
-        break;
-      }
-      default:
-        printf("Invalid choice! Try again!\n");
-        break;
-    }
-  }
+			printf("The customers total games have been changed!\n");
+			print_customer(&all_customers[customer_index]);
+			break;
+		}
+		case 0:
+		{
+			run_program = false;
+			free(all_customers);
+			break;
+		}
+		default:
+			printf("Invalid choice! Try again!\n");
+			break;
+		}
+	}
 
-  return 0;
+	return 0;
 }
 
-void
-print_menu()
+void print_menu()
 {
-  printf("\n1. Create a new customer\n");
-  printf("2. Delete a customer\n");
-  printf("3. Show all customers\n");
-  printf("4. Search for a customer\n");
-  printf("5. Update a customers name\n");
-  printf("6. Update a customers address\n");
-  printf("7. Update a customers total games\n");
-  printf("0. Quit\n");
+	printf("\n1. Create a new customer\n");
+	printf("2. Delete a customer\n");
+	printf("3. Show all customers\n");
+	printf("4. Search for a customer\n");
+	printf("5. Update a customers name\n");
+	printf("6. Update a customers address\n");
+	printf("7. Update a customers total games\n");
+	printf("0. Quit\n");
 }

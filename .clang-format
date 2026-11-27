@@ -1,3 +1,56 @@
 ---
-BasedOnStyle: Mozilla
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Indentation
+UseTab: Always
+TabWidth: 2
+IndentWidth: 2
+ContinuationIndentWidth: 2
+IndentCaseLabels: false
+AccessModifierOffset: -2
+NamespaceIndentation: None
+
+# Braces (Allman)
+BreakBeforeBraces: Allman
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+
+# Pointers and spacing
+PointerAlignment: Right
+DerivePointerAlignment: false
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpaceBeforeAssignmentOperators: true
+SpacesBeforeTrailingComments: 1
+Cpp11BracedListStyle: true
+
+# Line breaking
+ColumnLimit: 0
+BinPackArguments: false
+BinPackParameters: false
+AlignAfterOpenBracket: Align
+AlignOperands: Align
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
+AlignTrailingComments: false
+BreakBeforeBinaryOperators: None
+BreakConstructorInitializers: BeforeColon
+PenaltyBreakBeforeFirstCallParameter: 1000
+ReflowComments: false
+
+# Includes
+SortIncludes: Never
+IncludeBlocks: Preserve
+
+# Misc
+MaxEmptyLinesToKeep: 1
+KeepEmptyLinesAtTheStartOfBlocks: false
+FixNamespaceComments: false
+Standard: Latest
 ...
