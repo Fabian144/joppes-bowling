@@ -28,9 +28,9 @@ bool load_customers_from_file(const char *filename)
 	int prel_total_customers = 0;
 	fscanf(file, "Total customers: %d\n", &prel_total_customers);
 
-	if (total_customers >= customer_limit &&
+	if (prel_total_customers >= customer_limit &&
 			!allocate_memory_for_customers(
-				&all_customers, &customer_limit, total_customers * 2))
+				&all_customers, &customer_limit, prel_total_customers * 2))
 	{
 		return false;
 	}
